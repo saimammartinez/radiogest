@@ -2,6 +2,8 @@ require('dotenv').config()
 const express = require('express')
 const path = require('path')
 const morgan = require('morgan')
+const exphbs = require('express-handlebars')
+
 
 
 //Inicializaciones
@@ -10,6 +12,13 @@ require('./database')
 
 //Configuraciones
 app.set('views', path.join(__dirname, 'views'))
+app.engine('.hbs', exphbs({
+    defaultLayout: 'main', 
+    layoutsDir: path.join(app.get('views'), 'layouts'),
+    partialsDir: path.join(app.get('views'), 'partials'),
+    extname: '.hbs'
+}))
+app.set('view engine', '.hbs')
 
 
 //Middlewares
@@ -19,7 +28,7 @@ app.use(morgan('dev'))
 
 //Rutas
 app.get('/', (req, res)=>{
-    res.send('Hola Miky')
+    res.render('index')
 })
 
 //Ficheros estáticos

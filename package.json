@@ -13,8 +13,8 @@
   "author": "Miguel Martinez",
   "license": "ISC",
   "dependencies": {
-    
     "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
     "mongoose": "^5.9.10"
   },
   "devDependencies": {
