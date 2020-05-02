@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="col-md-4 mx-auto">
+        <div class="card text-center">
+            <div class="card-header">
+                <h3>Nuevo Diploma</h3>
+            </div>
+            <div class="card-body">
+                <form action="/diplomas/new-diploma" method="POST">
+                    <div class="form-group">
+                        <input type="text" name="usuariodiploma" class="form-control" placeholder="Usuario" autofocus>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="tipodiploma" class="form-control" placeholder="Tipo diploma">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="urldiploma" class="form-control" placeholder="PDF">
+                    </div>
+                    <div class="form-group">
+                        <label for="descargadodiploma">Diploma descargado </label>
+                        <input type="checkbox" id="descargadodiploma" name="descargadodiploma" class="form-control">
+                    </div>
+                    <div class="froom-group">
+                        <button class="btn btn-primary btn-block">
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,29 +1,31 @@
 const diplomasCtrl = {};
 
-//get
-diplomasCtrl.renderDiplomasForm=(req, res)=>{
-    res.send('diploma add') 
-}
 
-//post
+
+//post - diplomas/new-diploma
 diplomasCtrl.createDiploma= (req, res)=>{
-    res.send('New diploma ') 
+    console.log(req.body)
+    
 }
 
+//get - diplomas/add
+diplomasCtrl.renderDiplomasForm=(req, res)=>{
+    res.render('diplomas/newDiploma')
+}
 
-diplomasCtrl.renderDiplomas=(req, res)=>{
+//get - diplomas
+diplomasCtrl.renderAllDiplomas=(req, res)=>{
     res.send('todos los Diplomas')
 }
-//get
-diplomasCtrl.renderEditDiploma=(req, res)=>{
-    res.send('form Diploma')
-}
 
-//post
+//put - diplomas/edit/:id
 diplomasCtrl.updateDiploma=(req, res)=>{
     res.send('update Diploma')
 }
 
-
+//delete - diplomas/delete/:id
+diplomasCtrl.deleteDiploma=(req,res)=>{
+    res.send('Elimina Diploma')
+}
 
 module.exports = diplomasCtrl;
