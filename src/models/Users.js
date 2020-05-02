@@ -1,21 +1,21 @@
-const {Schema, model} =requiere('mongoose')
+const {Schema, model} =require('mongoose')
 
 const user = new Schema({
     usuario: {
-        type: string, 
-        requiere: true
+        type: String, 
+        required: true
     },
     nombre: {
-        type: string, 
-        requiere: true
+        type: String, 
+        required: true
     },
     password: {
-        type: string, 
-        requiere: true
+        type: String, 
+        required: true
     },
     email: {
-        type: string, 
-        requiere: true
+        type: String, 
+        required: true
     },
 
 }, { 

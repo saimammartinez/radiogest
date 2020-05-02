@@ -1,30 +1,55 @@
 const diplomasCtrl = {};
 
-
+const Diploma = require('../models/Diploma')
 
 //post - diplomas/new-diploma
-diplomasCtrl.createDiploma= (req, res)=>{
-    console.log(req.body)
+diplomasCtrl.createDiploma = async(req, res) => {
     
+    const {
+        usuariodiploma,
+        tipodiploma,
+        urldiploma,
+        descargadodiploma
+    } = req.body
+
+   
+
+    if(descargadodiploma==undefined){
+        valDescargado = 'off'
+    }else{
+        valDescargado = 'on'
+    }
+    
+    newDiploma = new Diploma({
+        usuario: usuariodiploma,
+        tipoDiploma: tipodiploma,
+        urlDiploma: urldiploma,
+        descargadoDiploma: valDescargado
+    })
+    
+    await newDiploma.save();
+    
+    res.send('Creado Diploma')
 }
 
 //get - diplomas/add
-diplomasCtrl.renderDiplomasForm=(req, res)=>{
+diplomasCtrl.renderDiplomasForm = (req, res) => {
     res.render('diplomas/newDiploma')
 }
 
 //get - diplomas
-diplomasCtrl.renderAllDiplomas=(req, res)=>{
-    res.send('todos los Diplomas')
+diplomasCtrl.renderAllDiplomas = async (req, res) => {
+    const diplomas = await Diploma.find().lean()
+    res.render('diplomas/allDiplomas', {diplomas})
 }
 
 //put - diplomas/edit/:id
-diplomasCtrl.updateDiploma=(req, res)=>{
+diplomasCtrl.updateDiploma = (req, res) => {
     res.send('update Diploma')
 }
 
 //delete - diplomas/delete/:id
-diplomasCtrl.deleteDiploma=(req,res)=>{
+diplomasCtrl.deleteDiploma = (req, res) => {
     res.send('Elimina Diploma')
 }
 

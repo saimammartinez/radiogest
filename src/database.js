@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
-const { MONGO_HOST, MONGO_DB } = process.env
+const { MONGO_HOST } = process.env
 
 
-mongoose.connect(MONGO_HOST+MONGO_DB,{
+mongoose.connect(MONGO_HOST ,{
     useNewUrlParser: true,
     useUnifiedTopology: true
 })

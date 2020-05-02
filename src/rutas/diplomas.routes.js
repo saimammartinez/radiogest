@@ -5,7 +5,6 @@ const {
     renderAllDiplomas,
     renderDiplomasForm,
     updateDiploma,
-    renderEditDiploma,
     deleteDiploma
 } = require('../controllers/diplomas.controller')
 
@@ -16,7 +15,7 @@ router.get('/diplomas', renderAllDiplomas)
 
 router.post('/diplomas/new-diploma', createDiploma)
 
-// router.get('/diplomas/edit/:id', renderEditDiploma)
+ //router.get('/diplomas/edit/:id', updateDiploma)
 
 router.put('/diplomas/edit/:id', updateDiploma)
 
