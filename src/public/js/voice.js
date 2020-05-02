@@ -18,4 +18,4 @@ function iniciar (event){
 }
 
 rec.start()
-//module.exports = rec
+module.exports = rec 
