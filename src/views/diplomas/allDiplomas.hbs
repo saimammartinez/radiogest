@@ -1,35 +1,39 @@
 <div class="row">
-{{#each diplomas}}
+    <div class="container">
 
-<div class="col-md-2 ">
-    <div class="card mt-2">
-        <div class="card-title d-flex justify-content-between align-items-center pt-2 pl-2 pr-2">
-            <h5> {{tipoDiploma}} </h5>
-            <a href="diplomas/edit/{{_id}}"><i class="fa fa-pencil"></i></a> 
+        <a href="/diplomas/add" class="btn btn-warning btn-block">Añadir Diploma </a>
+    </div>
+</div>
+<div class="row">
+    {{#each diplomas}}
+
+    <div class="col-md-2 ">
+        <div class="card mt-2">
+            <div class="card-title d-flex justify-content-between align-items-center pt-2 pl-2 pr-2">
+                <h5> {{tipoDiploma}} </h5>
+                <a href="diploma/edit/{{_id}}"><i class="fa fa-pencil"></i></a>
+            </div>
+            <div class="card-body ">
+                <h6>
+                    {{usuario}}
+                    <br>
+                    {{urlDiploma}}
+                    <br>
+                    {{!-- {{#if (descargadoDiploma==='on')}}Descargado{{else}}No descargado{{/if}} --}}
+                    Descargado: {{descargadoDiploma}}
+
+                </h6>
+                <form action="diploma/delete/{{_id}}?_method=DELETE" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger btn-block btn-sm">Eliminar</button>
+                </form>
+
+
+            </div>
+
         </div>
-        <div class="card-body ">
-            <h6>
-                {{usuario}} 
-                <br>
-                {{urlDiploma}}
-                <br>
-                {{descargadoDiploma}}
-                
-            </h6>
-         <form action="diploma/delete/{{_id}}" method="POST">
-            <button type="submit" class="btn btn-danger btn-block btn-sm">Eliminar</button>
-         </form>
-
-
-        </div>
-
-
-
-
 
     </div>
 
-</div>
-
-{{/each}}
+    {{/each}}
 </div>

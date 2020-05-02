@@ -4,7 +4,7 @@ const path = require('path')
 const morgan = require('morgan')
 const exphbs = require('express-handlebars')
 
-
+const methodOverride = require('method-override')
 
 //Inicializaciones
 const app = express()
@@ -24,7 +24,7 @@ app.set('view engine', '.hbs')
 //Middlewares 
 app.use(express.urlencoded({extended: false}))
 app.use(morgan('dev'))
-
+app.use(methodOverride('_method'))
 
 //Rutas
 app.use(require('./rutas/index.routes'))
