@@ -21,15 +21,14 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs')
 
 
-//Middlewares
+//Middlewares 
 app.use(express.urlencoded({extended: false}))
 app.use(morgan('dev'))
 
 
 //Rutas
-app.get('/', (req, res)=>{
-    res.render('index')
-})
+app.use(require('./rutas/index.routes'))
+app.use(require('./rutas/diplomas.routes'))
 
 //Ficheros estáticos
 app.use(express.static(path.join(__dirname, 'public')))
