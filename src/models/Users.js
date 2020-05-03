@@ -17,6 +17,10 @@ const user = new Schema({
         type: String, 
         required: true
     },
+    admin:{
+        type: String,
+        required: true
+    }
 
 }, { 
     timestamps: true

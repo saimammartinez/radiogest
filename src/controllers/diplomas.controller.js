@@ -28,6 +28,7 @@ diplomasCtrl.createDiploma = async(req, res) => {
     })
     
     await newDiploma.save();
+    req.flash('msg_ok', 'Diploma añadido correctamente')
     
     res.redirect('/diplomas')
 }
@@ -45,22 +46,29 @@ diplomasCtrl.renderAllDiplomas = async (req, res) => {
 
 //post override put - diploma/edit/:id
 diplomasCtrl.updateDiploma = async(req, res) => {
-    console.log(req.body)
+    
     const {usuariodiploma, tipodiploma, urldiploma, descargadodiploma} = req.body;
+    if(!descargadodiploma){
+        valDescargado = 'off'
+    }else {
+        valDescargado = 'on'
+    }
 
     await Diploma.findByIdAndUpdate(req.params.id, { 
         usuario:  usuariodiploma,
         tipoDiploma: tipodiploma,
         urlDiploma: urldiploma,
-        descargadoDiploma:descargadodiploma
+        descargadoDiploma:valDescargado
     })
+    req.flash('msg_ok', 'Diploma actualizado correctamente')
     res.redirect('/diplomas')
 }
 
 //post override delete - diploma/delete/:id
 diplomasCtrl.deleteDiploma = async(req, res) => {
-    console.log(req.params.id)
-    await Diploma.findByIdAndDelete(req.params.id)
+    
+    await Diploma.findByIdAndDelete (req.params.id)
+    req.flash('msg_ok', 'Diploma eliminado correctamente')
     res.redirect('/diplomas')
 }
 // get - diploma/editDiploma.habs
