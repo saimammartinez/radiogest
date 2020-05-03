@@ -9,18 +9,19 @@ const {
     deleteDiploma
 } = require('../controllers/diplomas.controller')
 
+const {isAutenticated} = require('../helpers/route.protection')
 
-router.get('/diplomas/add', renderDiplomasForm)
+router.get('/diplomas/add', isAutenticated, renderDiplomasForm)
 
-router.get('/diplomas', renderAllDiplomas)
+router.get('/diplomas', isAutenticated, renderAllDiplomas)
 
-router.post('/diplomas/new-diploma', createDiploma)
+router.post('/diplomas/new-diploma', isAutenticated, createDiploma)
 
-router.get('/diploma/edit/:id', renderUpdateForm)
+router.get('/diploma/edit/:id', isAutenticated, renderUpdateForm)
 
-router.put('/diploma/edit/:id', updateDiploma)
+router.put('/diploma/edit/:id', isAutenticated, updateDiploma)
 
-router.delete('/diploma/delete/:id', deleteDiploma)
+router.delete('/diploma/delete/:id', isAutenticated, deleteDiploma)
 
 
 module.exports = router;

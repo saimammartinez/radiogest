@@ -1,6 +1,6 @@
-const rec
+let rec = null
 
-if(!("webkitSpeechRecognition" in wiindow)) {
+if(!("webkitSpeechRecognition" in window)) {
     alert("Reconocimiento de voz no disponible en este dispositivo")
 
 }else {
@@ -17,5 +17,5 @@ function iniciar (event){
     }
 }
 
-rec.start()
-module.exports = rec 
+//rec.start()
+

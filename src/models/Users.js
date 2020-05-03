@@ -26,11 +26,12 @@ const user = new Schema({
     timestamps: true
 })
 
-module.exports = model('Users', user)
-
 user.methods.matchPassword = function(password) {
-    if(password = this.password) {
+    console.log(password)
+    if(password == this.password) {
         return true
     }
      return false
  }
+
+ module.exports = model('Users', user)

@@ -7,11 +7,13 @@ const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
 const flash = require('connect-flash')
 const session = require('express-session')
+const passport = require('passport')
 
 
 //Inicializaciones
 const app = express()
 require('./database')
+require('./config/passport')
 
 //Configuraciones
 app.set('views', path.join(__dirname, 'views'))
@@ -33,13 +35,20 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(flash())
+
 
 //Varioables Globales
 app.use((req, res, next)=>{
+    res.locals.msg_err = req.flash('msg_err')
     res.locals.msg_ok = req.flash('msg_ok')
+    res.locals.msg_login = req.flash('msg_login')
+    res.locals.user = req.user || null
     next()
 })
+
 
 //Rutas
 app.use(require('./rutas/index.routes'))

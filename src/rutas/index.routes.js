@@ -7,8 +7,4 @@ router.get('/',renderIndex)
 router.get('/about', renderAbout) 
 
 
-
-
-
-
 module.exports = router;

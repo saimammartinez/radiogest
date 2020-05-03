@@ -6,21 +6,30 @@ const {
     renderUsersForm,
     renderUpdateForm,
     updateUser,
-    deleteUser
+    deleteUser,
+    login,
+    renderLoginForm,
+    logout
 } = require('../controllers/users.controller')
 
+const {isAutenticated} = require('../helpers/route.protection')
 
-router.get('/users/add', renderUsersForm)
+router.get('/users/add', isAutenticated, renderUsersForm)
 
-router.get('/users', renderAllUsers)
+router.get('/users', isAutenticated, renderAllUsers)
 
-router.post('/users/new-user', createUser)
+router.post('/users/new-user', isAutenticated, createUser)
 
-router.get('/user/edit/:id', renderUpdateForm)
+router.get('/user/edit/:id', isAutenticated, renderUpdateForm)
 
-router.put('/user/edit/:id', updateUser)
+router.put('/user/edit/:id', isAutenticated, updateUser)
 
-router.delete('/user/delete/:id', deleteUser)
+router.delete('/user/delete/:id', isAutenticated, deleteUser)
 
+router.get('/users/login',  renderLoginForm)
+
+router.post('/users/login', login)
+
+router.get('/users/logout', logout)
 
 module.exports = router;

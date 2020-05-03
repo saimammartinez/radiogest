@@ -1,5 +1,5 @@
 const usersCtrl = {};
-
+const passport = require('passport')
 const User = require('../models/Users')
 
 //post - users/new-user
@@ -24,11 +24,18 @@ usersCtrl.createUser = async(req, res) => {
         email,
         admin: valAdmin
     })
-    
-    await newUser.save();
-    req.flash('msg_ok', 'Usuario añadido correctamente')
-    
-    res.redirect('/users')
+    validemail = await User.findOne({email})
+    if(!validemail){
+        await newUser.save();
+        req.flash('msg_ok', 'Usuario añadido correctamente')
+        
+        res.redirect('/users')
+    } else
+    {
+        req.flash('msg_err', 'Este e-mail ya existe: ' + email)
+        res.redirect('/users/add')   
+    }
+
 }
 
 //get - users/add
@@ -80,5 +87,23 @@ usersCtrl.renderUpdateForm = async (req, res)=>{
     }
     res.render('users/editUser.hbs', {userEdit, checked})
 }
-//{id:req.params.id, usuario:userEdit.usuario, tipo:userEdit.tipoUser, url:userEdit.urlUser, descargado:checked}
+
+//
+usersCtrl.renderLoginForm = (req,res)=>{
+    res.render('users/login')
+}
+
+usersCtrl.login = passport.authenticate('local', {
+    failureRedirect: '/users/login',
+    successRedirect: '/diplomas',
+    failureFlash: true
+
+})
+
+usersCtrl.logout = (req, res)=>{
+    req.logout()
+    req.flash('msg_ok', 'Has cerrado sesión correctamente')
+    res.redirect('/users/login')
+}
+
 module.exports = usersCtrl;
