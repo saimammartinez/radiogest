@@ -10,16 +10,16 @@ const Diploma = new Schema({
         required: true
     },
     urlDiploma: {
-        type: String, 
-        required: true
+        type: String
+        
     },
     descargadoDiploma: {
-        type: String, 
-        required: true
+        type: String,
+        required: false
     },
 
 }, { 
     timestamps: true
-})
+}) 
 
 module.exports = model('Diploma', Diploma)

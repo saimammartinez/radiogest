@@ -27,10 +27,14 @@ diplomasCtrl.createDiploma = async (req, res) => {
         urlDiploma: urldiploma,
         descargadoDiploma: valDescargado
     })
+    try {
+        await newDiploma.save();
+        req.flash('msg_ok', 'Diploma añadido correctamente')
 
-    await newDiploma.save();
-    req.flash('msg_ok', 'Diploma añadido correctamente')
-
+    } catch (error) {
+        req.flash('msg_err', 'Error al guardar: ' + error )
+    }
+    
     res.redirect('/diplomas')
 }
 
@@ -41,7 +45,7 @@ diplomasCtrl.renderDiplomasForm = (req, res) => {
 
 //get - diplomas
 diplomasCtrl.renderAllDiplomas = async (req, res) => {
-    const diplomas = await Diploma.find().lean()
+    const diplomas = await Diploma.find().sort({"tipoDiploma":1, "usuario":1}).lean()
     res.render('diplomas/allDiplomas', { diplomas })
 }
 
