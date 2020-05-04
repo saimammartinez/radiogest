@@ -11,6 +11,7 @@ const {
 
 const {isAutenticated} = require('../helpers/route.protection')
 
+
 router.get('/diplomas/add', isAutenticated, renderDiplomasForm)
 
 router.get('/diplomas', isAutenticated, renderAllDiplomas)

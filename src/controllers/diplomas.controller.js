@@ -3,8 +3,8 @@ const diplomasCtrl = {};
 const Diploma = require('../models/Diploma')
 
 //post - diplomas/new-diploma
-diplomasCtrl.createDiploma = async(req, res) => {
-    
+diplomasCtrl.createDiploma = async (req, res) => {
+
     const {
         usuariodiploma,
         tipodiploma,
@@ -12,24 +12,25 @@ diplomasCtrl.createDiploma = async(req, res) => {
         descargadodiploma
     } = req.body
 
-   
 
-    if(descargadodiploma==undefined){
+    if (descargadodiploma == undefined) {
         valDescargado = 'off'
-    }else{
+    } else {
         valDescargado = 'on'
     }
-    
+
+    console.log(urldiploma)
+
     newDiploma = new Diploma({
         usuario: usuariodiploma,
         tipoDiploma: tipodiploma,
         urlDiploma: urldiploma,
         descargadoDiploma: valDescargado
     })
-    
+
     await newDiploma.save();
     req.flash('msg_ok', 'Diploma añadido correctamente')
-    
+
     res.redirect('/diplomas')
 }
 
@@ -41,47 +42,54 @@ diplomasCtrl.renderDiplomasForm = (req, res) => {
 //get - diplomas
 diplomasCtrl.renderAllDiplomas = async (req, res) => {
     const diplomas = await Diploma.find().lean()
-    res.render('diplomas/allDiplomas', {diplomas})
+    res.render('diplomas/allDiplomas', { diplomas })
 }
 
 //post override put - diploma/edit/:id
-diplomasCtrl.updateDiploma = async(req, res) => {
-    
-    const {usuariodiploma, tipodiploma, urldiploma, descargadodiploma} = req.body;
-    if(!descargadodiploma){
+diplomasCtrl.updateDiploma = async (req, res) => {
+
+    const { usuariodiploma, tipodiploma, urldiploma, descargadodiploma, selectedpdf } = req.body;
+    if (!descargadodiploma) {
         valDescargado = 'off'
-    }else {
+    } else {
         valDescargado = 'on'
     }
 
-    await Diploma.findByIdAndUpdate(req.params.id, { 
-        usuario:  usuariodiploma,
+    if (selectedpdf == '') {
+        valorpdf = urldiploma
+    } else {
+        valorpdf = selectedpdf
+    }
+
+
+    await Diploma.findByIdAndUpdate(req.params.id, {
+        usuario: usuariodiploma,
         tipoDiploma: tipodiploma,
-        urlDiploma: urldiploma,
-        descargadoDiploma:valDescargado
+        urlDiploma: valorpdf,
+        descargadoDiploma: valDescargado
     })
     req.flash('msg_ok', 'Diploma actualizado correctamente')
     res.redirect('/diplomas')
 }
 
 //post override delete - diploma/delete/:id
-diplomasCtrl.deleteDiploma = async(req, res) => {
-    
-    await Diploma.findByIdAndDelete (req.params.id)
+diplomasCtrl.deleteDiploma = async (req, res) => {
+
+    await Diploma.findByIdAndDelete(req.params.id)
     req.flash('msg_ok', 'Diploma eliminado correctamente')
     res.redirect('/diplomas')
 }
 // get - diploma/editDiploma.habs
-diplomasCtrl.renderUpdateForm = async (req, res)=>{
+diplomasCtrl.renderUpdateForm = async (req, res) => {
 
     const diplomaEdit = await Diploma.findById(req.params.id).lean()
 
-    if(diplomaEdit.descargadoDiploma==="on"){
+    if (diplomaEdit.descargadoDiploma === "on") {
         checked = 'checked'
-    }else {
-        checked=''
+    } else {
+        checked = ''
     }
-    res.render('diplomas/editDiploma.hbs', {diplomaEdit, checked})
+    res.render('diplomas/editDiploma.hbs', { diplomaEdit, checked })
 }
 //{id:req.params.id, usuario:diplomaEdit.usuario, tipo:diplomaEdit.tipoDiploma, url:diplomaEdit.urlDiploma, descargado:checked}
 module.exports = diplomasCtrl;

@@ -1,6 +1,6 @@
 <div class="container">
 
-    <div class="col-md-4 mx-auto">
+    <div class="col-md-6 mx-auto">
         <div class="card text-center">
             <div class="card-header">
                 <h3>Editando Diploma</h3>
@@ -15,12 +15,16 @@
                         <input type="text" name="usuariodiploma" class="form-control" placeholder="Usuario"
                             value="{{diplomaEdit.usuario}}" autofocus>
                     </div>
+                    
                     <div class="form-group">
                         <input type="text" name="tipodiploma" class="form-control" placeholder="Tipo diploma"
                             value="{{diplomaEdit.tipoDiploma}}">
                     </div>
+
                     <div class="form-group">
-                        <input type="text" name="urldiploma" class="form-control" placeholder="PDF" value="{{diplomaEdit.urlDiploma}}">
+                        <input type="hidden" name="urldiploma" value="{{diplomaEdit.urlDiploma}}">
+                        <label for="selectedpdf">{{diplomaEdit.urlDiploma}}</label>
+                        <input type="file" accept=".pdf" name="selectedpdf" id="selectedpdf" class="form-control" >
                     </div>
                     
                     <div class="form-group">
