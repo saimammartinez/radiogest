@@ -3,17 +3,17 @@ const express = require('express')
 const path = require('path')
 const morgan = require('morgan')
 const exphbs = require('express-handlebars')
-
+const cors = require('cors')
 const methodOverride = require('method-override')
 const flash = require('connect-flash')
 const session = require('express-session')
 const passport = require('passport')
 
-
 //Inicializaciones
 const app = express()
 require('./database')
 require('./config/passport')
+
 
 //Configuraciones
 app.set('views', path.join(__dirname, 'views'))
@@ -27,6 +27,7 @@ app.set('view engine', '.hbs')
 
 
 //Middlewares 
+app.use(cors())
 app.use(express.urlencoded({extended: false}))
 app.use(morgan('dev'))
 app.use(methodOverride('_method'))
